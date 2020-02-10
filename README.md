@@ -103,3 +103,33 @@ To change the api hostname of the frontend:
 5. Execute `npm run start` to start the server.
 
 Note: If you can not modify `vuejs/src/config.json`, you can pass url parameters to the webapp, such as `http://IP:PORT?hostname=localhost:2323` or `http://IP:PORT?host=localhost&port=2323`.
+
+## Automatize with SystemCtl
+
+On the Raspberry runs Linux Ubuntu. This means that **systemctl** is available.
+
+To make the exporter run on boot:
+
+1. Open a terminal.
+2. Go to the `/etc/systemd/system` folder.
+3. Create a file by executing `touch exporter.service`.
+4. Copy this code into that file.
+```
+[Unit]
+Description=Eagle-TRT telemetry exporter webapp
+Wants=mongodb.service
+After=mongodb.service
+StartLimitIntervalSec=0
+[Service]
+Type=simple
+Restart=always
+RestartSec=5
+User=ubuntu
+ExecStart=/usr/bin/node /home/ubuntu/eagletrt-telemetria-exporter/main.js
+WorkingDirectory=/home/ubuntu/eagletrt-telemetria-exporter
+[Install]
+WantedBy=multi-user.target
+```
+5. Execute `sudo systemctl daemon-reload` to make the changes effective.
+6. Execute `sudo systemctl start exporter`. The exporter should start running at this step.
+7. Execute `sudo systemctl enable exporter` to make the exporter start on boot.
