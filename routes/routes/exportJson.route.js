@@ -3,6 +3,7 @@ const zl = require('zip-lib');
 const logger = require('../../utils/logger')('EXPORT_JSON');
 const remover = require('../../utils/remover');
 const pather = require('../../utils/pather');
+const getSessions = require('../../utils/get-sessions');
 const { MONGO } = require('../../config');
 
 module.exports = function (router) {
@@ -19,11 +20,7 @@ module.exports = function (router) {
 
         const collectionsToExport = req.body.collectionsToExport;
         logger.debug('collections are ', collectionsToExport);
-        const sessionsToExport = Object.keys(collectionsToExport)
-            .map(collection => ({
-                collections: collection,
-                query: { sessionName: { $in: collectionsToExport[collection] } }
-            }));
+        const sessionsToExport = getSessions(collectionsToExport);
             
         try {
             await mongoback.mongoExport({

@@ -18,7 +18,7 @@ module.exports = function (router) {
             const connection = await MongoClient.connect(MONGO.uri, { useUnifiedTopology: true });
             const db = connection.db(MONGO.database);
             const dbSchema = await collections.reduce(async (acc, coll) => ({
-                ...acc,
+                ...(await acc),
                 [coll]: (await db.collection(coll).find({ id: undefined }).toArray()).map(s => s.sessionName)
             }), Promise.resolve({}));
             res.status(200).send(dbSchema);
