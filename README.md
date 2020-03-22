@@ -145,6 +145,11 @@ The structure is organized in **databases** and **collections**:
 * The database can be for instance the name of the car whose data has been saved, such as `chimera` or `fenice`. 
 * The collection is the combination of the timestamp when the telemetry created that collection, the pilot who drove the car and the type of race. All the documents in the collection represents the data saved in 500ms.
 
+When exporting:
+
+* __as json__: For each database will be create a folder. Each database folder will contain a json file for each exported collection.
+* __as csv__: For each database will be create a folder. Each database folder will contain a folder for each exported collection. Each collection folder will contain the organized-per-property csv files.
+
 ### Version 2.0
 
 The structure is organized in **databases**, **collections** and **sessions**:
@@ -152,3 +157,8 @@ The structure is organized in **databases**, **collections** and **sessions**:
 * The database is always the same: `eagletrt`
 * The collection can be arbitrarily chosen. It can be for instance the name of the car (`chimera` or `fenice`) or `test`
 * The session is determined by the telemetry of the car. It is a document inside a collection, containing the fields representing the timestamp when the session was created, the pilot who was driving the car and the type of race he was performing. The combination of the three is the **sessionName**. A collection can contain several **session documents**, along with their **record documents**, that have have the same **sessionName** value of the session in which they were saved
+
+When exporting:
+
+* __as json__: For each database will be create a folder. Each database folder will contain a json file for each exported collection. Each of these json files will contain both the session documents and the record documents of the exported session. This is because the main usage of the json export is to import the data in another mongodb and to achive this all the sessions of a collection need to stay in an unique json file
+* __as csv__: For each database will be create a folder. Each database folder will contain a folder for each exported collection. Each collection folder will contain a folder for each exported session. Each session folder will contain the organized-per-property csv files.
