@@ -2,7 +2,6 @@ const path = require('path');
 
 module.exports = function () {
 
-	console.log(process.cwd())
     const timestamp = Date.now();
     const tempPath = path.join(process.cwd(), 'temp');
     const folderPath = path.join(tempPath, `${timestamp}`);

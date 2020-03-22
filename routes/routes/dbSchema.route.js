@@ -1,11 +1,10 @@
+const { MongoClient } = require('mongodb');
 const { MongoScanner } = require('mongo-scanner');
 const logger = require('../../utils/logger')('DBSCHEMA');
 
 const { MONGO } = require('../../config');
 const mongoScanner = new MongoScanner(MONGO.uri, null, { 
     excludeSystem: true,
-    excludeEmptyDatabases: true,
-    excludeDatabases: ['local'],
     ignoreLackOfPermissions: true
 });
 
@@ -15,7 +14,13 @@ module.exports = function (router) {
         logger.info('api/database-schema');
         try {
             logger.debug('Uri is ', MONGO.uri);
-            const dbSchema = await mongoScanner.getSchema();
+            const collections = await mongoScanner.listCollections(MONGO.database);
+            const connection = await MongoClient.connect(MONGO.uri, { useUnifiedTopology: true });
+            const db = connection.db(MONGO.database);
+            const dbSchema = await collections.reduce(async (acc, coll) => ({
+                ...acc,
+                [coll]: (await db.collection(coll).find({ id: undefined }).toArray()).map(s => s.sessionName)
+            }), Promise.resolve({}));
             res.status(200).send(dbSchema);
         }
         catch (error) {

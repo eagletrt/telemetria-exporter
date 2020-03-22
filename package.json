@@ -21,6 +21,7 @@
     "helmet": "^3.21.3",
     "mongo-scanner": "^2.0.3",
     "mongoback": "^1.0.4",
+    "mongodb": "^3.5.5",
     "morgan": "^1.10.0",
     "rimraf": "^3.0.2",
     "zip-lib": "^0.5.0"

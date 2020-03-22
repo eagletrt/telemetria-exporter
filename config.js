@@ -4,7 +4,8 @@ module.exports = {
     PORT: 8000,
     MONGO: {
         uri: 'mongodb://localhost:27017',
-        options: {}
+        options: {},
+        database: 'eagle_test'
     },
     LOGGER: {
         palette: {

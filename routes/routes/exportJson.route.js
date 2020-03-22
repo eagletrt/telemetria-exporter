@@ -19,10 +19,16 @@ module.exports = function (router) {
 
         const collectionsToExport = req.body.collectionsToExport;
         logger.debug('collections are ', collectionsToExport);
+        const sessionsToExport = Object.keys(collectionsToExport)
+            .map(collection => ({
+                collections: collection,
+                query: { sessionName: { $in: collectionsToExport[collection] } }
+            }));
+            
         try {
             await mongoback.mongoExport({
                 uri: MONGO.uri,
-                collections: collectionsToExport,
+                collections: sessionsToExport,
                 jsonArray: true,
                 throwIfLackOfPermissions: true,
                 throwIfOneFails: true,
