@@ -133,3 +133,22 @@ WantedBy=multi-user.target
 5. Execute `sudo systemctl daemon-reload` to make the changes effective.
 6. Execute `sudo systemctl start exporter`. The exporter should start running at this step.
 7. Execute `sudo systemctl enable exporter` to make the exporter start on boot.
+
+## Versions
+
+All the gif and images refers to the *1.0* version. Currently, on master, there is the *2.0* version. The difference is that this version supports the *new database structure*, but the usage and the ui is still the same.
+
+### Version 1.0
+
+The structure is organized in **databases** and **collections**: 
+
+* The database can be for instance the name of the car whose data has been saved, such as `chimera` or `fenice`. 
+* The collection is the combination of the timestamp when the telemetry created that collection, the pilot who drove the car and the type of race. All the documents in the collection represents the data saved in 500ms.
+
+### Version 2.0
+
+The structure is organized in **databases**, **collections** and **sessions**:
+
+* The database is always the same: `eagletrt`
+* The collection can be arbitrarily chosen. It can be for instance the name of the car (`chimera` or `fenice`) or `test`
+* The session is determined by the telemetry of the car. It is a document inside a collection, containing the fields representing the timestamp when the session was created, the pilot who was driving the car and the type of race he was performing. The combination of the three is the **sessionName**. A collection can contain several **session documents**, along with their **record documents**, that have have the same **sessionName** value of the session in which they were saved
