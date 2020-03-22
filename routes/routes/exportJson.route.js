@@ -25,7 +25,7 @@ module.exports = function (router) {
         try {
             await mongoback.mongoExport({
                 uri: MONGO.uri,
-                collections: sessionsToExport,
+                collections: { [MONGO.database]: sessionsToExport },
                 jsonArray: true,
                 throwIfLackOfPermissions: true,
                 throwIfOneFails: true,

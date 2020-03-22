@@ -3,6 +3,7 @@ const zl = require('zip-lib');
 const logger = require('../../utils/logger')('EXPORT_CSV');
 const remover = require('../../utils/remover');
 const pather = require('../../utils/pather');
+const getSessions = require('../../utils/get-sessions');
 const { MONGO } = require('../../config');
 
 module.exports = function (router) {
@@ -19,10 +20,12 @@ module.exports = function (router) {
 
         const collectionsToExport = req.body.collectionsToExport;
         logger.debug('collections are ', collectionsToExport);
+        const sessionsToExport = getSessions(collectionsToExport);
+
         try {
             await eagletrtCsv.mongoExport({
                 uri: MONGO.uri,
-                collections: collectionsToExport,
+                collections: { [MONGO.database]: sessionsToExport },
                 throwIfLackOfPermissions: true,
                 throwIfOneFails: true,
                 outDir: folderPath
