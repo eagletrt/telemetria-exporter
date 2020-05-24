@@ -62,9 +62,9 @@ Usage:
 
 1. The user types in a browser `http://IP:PORT`, where `IP` is the ip of the raspberry and `PORT` is the port of the server.
 2. The webapp asks the server for the **database schema** and shows it.
-3. Three columns are shown. The first shows the databases. When the user select a database, in the second column appear the collections of that database. The user can select or unselect collections by clicking on them. All the selected collections appear in the third column, organized by database. The selected collections can be unselected also by clicking them in the third column.
-4. Once selected the collections to export, the user clicks the **JSON** or the **CSV** button, depending on the desidered format.
-5. The webapp sends the request to the server and wait for a **zipped** file of the exported collections.
+3. Three columns are shown. The first shows the collections. When the user select a collectoin, in the second column appear the sessions of that collection. The user can select or unselect sessions by clicking on them. All the selected sessions appear in the third column, organized by collection. The selected sessions can be unselected also by clicking them in the third column.
+4. Once selected the sessions to export, the user clicks the **JSON** or the **CSV** button, depending on the desidered format.
+5. The webapp sends the request to the server and wait for a **zipped** file of the exported sessions.
 6. After the server answers to the webapp, the zip file named with a human-readable timestamp is **downloaded**. Then the webapp comes back to point `2`.
 
 ## Developer usage
