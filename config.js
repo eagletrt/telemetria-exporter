@@ -5,7 +5,7 @@ module.exports = {
     MONGO: {
         uri: 'mongodb://localhost:27017',
         options: {},
-        database: 'eagletrt'
+        database: 'eagle_test'
     },
     LOGGER: {
         palette: {
