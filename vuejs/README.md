@@ -1,4 +1,4 @@
-# telemetria-exporter
+# eagletrt-telemetria-exporter-frontend
 
 ## Project setup
 ```
