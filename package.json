@@ -19,6 +19,7 @@
     "eagletrt-csv": "^3.0.0",
     "express": "^4.17.1",
     "helmet": "^4.2.0",
+    "https-local": "^1.0.0",
     "mongo-scanner": "^2.0.5",
     "mongoback": "^2.0.4",
     "mongodb": "^3.6.3",

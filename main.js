@@ -1,9 +1,11 @@
+const https = require('https');
 const express = require('express');
 const compression = require('compression');
 const helmet = require('helmet');
 const cors = require('cors');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
+const httpsLocal = require('https-local');
 
 const { PORT, DIST_PATH } = require('./config');
 const routes = require('./routes');
@@ -49,9 +51,9 @@ logger.success('Added routes!!!');
 logger.hr();
 
 logger.info('Starting server...');
-app.listen(PORT, () => {
-    logger.success('Server started!!!');
-    logger.debug(`Server listening on port ${PORT}`);
-    logger.hr();
-    logger.br();
-});
+const httpsOptions = httpsLocal.options();
+https.createServer(httpsOptions, app).listen(PORT);
+logger.success('Server started!!!');
+logger.debug(`Server listening on port ${PORT}`);
+logger.hr();
+logger.br();
