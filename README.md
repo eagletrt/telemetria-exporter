@@ -60,12 +60,14 @@ To see a demo, scroll up to the top of this README.
 
 Usage:
 
-1. The user types in a browser `http://IP:PORT`, where `IP` is the ip of the raspberry and `PORT` is the port of the server.
+1. The user types in a browser `https://IP:PORT`, where `IP` is the ip of the raspberry and `PORT` is the port of the server.
 2. The webapp asks the server for the **database schema** and shows it.
 3. Three columns are shown. The first shows the collections. When the user select a collectoin, in the second column appear the sessions of that collection. The user can select or unselect sessions by clicking on them. All the selected sessions appear in the third column, organized by collection. The selected sessions can be unselected also by clicking them in the third column.
 4. Once selected the sessions to export, the user clicks the **JSON** or the **CSV** button, depending on the desidered format.
 5. The webapp sends the request to the server and wait for a **zipped** file of the exported sessions.
 6. After the server answers to the webapp, the zip file named with a human-readable timestamp is **downloaded**. Then the webapp comes back to point `2`.
+
+**Note:** It is possible that the browser shows an alert because the site is unsercure. You can just ignore it.
 
 ## Developer usage
 
@@ -89,7 +91,7 @@ To change something in the frontend:
 1. Open the terminal in the directory `vuejs` of the repository.
 2. Execute `npm i`.
 3. Make changes to the frontend source code.
-4. See changes by executing `npm run serve` and open a browser in `http://IP:8080`. Start the server if backend api are needed.
+4. See changes by executing `npm run serve` and open a browser in `https://IP:8080`. Start the server if backend api are needed.
 5. Open the terminal in the root directory of the repository.
 6. Execute `npm run build:frontend`.
 7. Execute `npm run start` to start the server.
@@ -102,7 +104,7 @@ To change the api hostname of the frontend:
 4. Execute `npm run build:frontend`.
 5. Execute `npm run start` to start the server.
 
-Note: If you can not modify `vuejs/src/config.json`, you can pass url parameters to the webapp, such as `http://IP:PORT?hostname=localhost:2323` or `http://IP:PORT?host=localhost&port=2323`.
+Note: If you can not modify `vuejs/src/config.json`, you can pass url parameters to the webapp, such as `https://IP:PORT?hostname=localhost:2323` or `https://IP:PORT?host=localhost&port=2323`.
 
 ## Automatize with SystemCtl
 
@@ -136,19 +138,11 @@ WantedBy=multi-user.target
 
 ## Versions
 
-All the gif and images refers to the *1.0* version. Currently, on master, there is the *2.0* version. The difference is that this version supports the *new database structure*, but the usage and the ui is still the same.
+All the gif and images refers to the *1.0* version. Currently, on master, there is the *2.1* version. The difference between the *1.0* and the *2.0* is that the new versions support the *new database structure*, but the usage and the ui is still the same.
 
-### Version 1.0
+### Version 2.1
 
-The structure is organized in **databases** and **collections**: 
-
-* The database can be for instance the name of the car whose data has been saved, such as `chimera` or `fenice`. 
-* The collection is the combination of the timestamp when the telemetry created that collection, the pilot who drove the car and the type of race. All the documents in the collection represents the data saved in 500ms.
-
-When exporting:
-
-* __as json__: For each database will be create a folder. Each database folder will contain a json file for each exported collection.
-* __as csv__: For each database will be create a folder. Each database folder will contain a folder for each exported collection. Each collection folder will contain the organized-per-property csv files.
+The webapp is now served via https, with a self-signed certificate. This was introduced after in the new version of most browsers all non-https requests worked only with localhost. The webapp could be warned as unsafe, but it is possible to simply skip the warning and use it.
 
 ### Version 2.0
 
@@ -162,3 +156,15 @@ When exporting:
 
 * __as json__: For each database will be create a folder. Each database folder will contain a json file for each exported collection. Each of these json files will contain both the session documents and the record documents of the exported session. This is because the main usage of the json export is to import the data in another mongodb and to achive this all the sessions of a collection need to stay in an unique json file
 * __as csv__: For each database will be create a folder. Each database folder will contain a folder for each exported collection. Each collection folder will contain a folder for each exported session. Each session folder will contain the organized-per-property csv files.
+
+### Version 1.0
+
+The structure is organized in **databases** and **collections**: 
+
+* The database can be for instance the name of the car whose data has been saved, such as `chimera` or `fenice`. 
+* The collection is the combination of the timestamp when the telemetry created that collection, the pilot who drove the car and the type of race. All the documents in the collection represents the data saved in 500ms.
+
+When exporting:
+
+* __as json__: For each database will be create a folder. Each database folder will contain a json file for each exported collection.
+* __as csv__: For each database will be create a folder. Each database folder will contain a folder for each exported collection. Each collection folder will contain the organized-per-property csv files.
