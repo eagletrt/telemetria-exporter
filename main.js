@@ -1,3 +1,4 @@
+const http = require('http');
 const https = require('https');
 const express = require('express');
 const compression = require('compression');
@@ -7,7 +8,7 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const httpsLocal = require('https-local');
 
-const { PORT, DIST_PATH } = require('./config');
+const { PORT, PORT_HTTPS, DIST_PATH } = require('./config');
 const routes = require('./routes');
 const app = express();
 
@@ -50,10 +51,21 @@ logger.success('Added routes!!!');
 
 logger.hr();
 
-logger.info('Starting server...');
+logger.info('Starting https server...');
 const httpsOptions = httpsLocal.options();
-https.createServer(httpsOptions, app).listen(PORT);
+https.createServer(httpsOptions, app).listen(PORT_HTTPS);
+logger.success('Server started!!!');
+logger.debug(`Server listening on port ${PORT_HTTPS}`);
+
+logger.hr();
+logger.br();
+
+logger.hr();
+
+logger.info('Starting http server...');
+http.createServer(app).listen(PORT);
 logger.success('Server started!!!');
 logger.debug(`Server listening on port ${PORT}`);
+
 logger.hr();
 logger.br();
