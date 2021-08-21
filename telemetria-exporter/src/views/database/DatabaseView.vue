@@ -1,6 +1,6 @@
 <template>
   <eagle-content>
-    <h1>ciaocoaes</h1>
+    <database />
   </eagle-content>
 </template>
 
@@ -9,10 +9,13 @@ import { Component, Vue } from "vue-property-decorator";
 
 import EagleContent from "@/components/gears/layout/EagleContent.vue";
 
+import Database from '@/components/pages/database/Database.vue';
+
 @Component({
   components: {
     EagleContent,
+    Database
   },
 })
-export default class HomeView extends Vue {}
+export default class DatabaseView extends Vue {}
 </script>

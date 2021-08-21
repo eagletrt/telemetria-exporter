@@ -20,5 +20,5 @@ import HomeButtons from "./gears/HomeButtons.vue";
     HomeButtons
   },
 })
-export default class HomeView extends Vue {}
+export default class Home extends Vue {}
 </script>

@@ -16,7 +16,7 @@ export default class EagleTransitionFade extends Vue {
   /* LIFE CYCLE HOOKS */
 
   mounted(): void {
-    setTimeout(() => (this.show = true), 1000);
+    setTimeout(() => (this.show = true), 10);
   }
 }
 </script>
@@ -24,7 +24,7 @@ export default class EagleTransitionFade extends Vue {
 <style scoped>
 .eagle-fade-enter-active,
 .eagle-fade-leave-active {
-  transition: opacity 700;
+  transition: opacity 2s;
 }
 .eagle-fade-enter,
 .eagle-fade-leave-to {
