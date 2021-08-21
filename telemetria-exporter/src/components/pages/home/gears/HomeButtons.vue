@@ -22,8 +22,6 @@ export default class HomeButtons extends Vue {}
 
 <style lang="scss" scoped>
 .home-buttons {
-  // margin-bottom: 24px;
-
   .button {
     margin: 0 8px;
   }

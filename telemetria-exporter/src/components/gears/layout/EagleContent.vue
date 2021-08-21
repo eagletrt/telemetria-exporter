@@ -1,7 +1,7 @@
 <template>
   <div class="eagle-content d-flex align-items-center justify-content-center">
     <eagle-transition-fade>
-      <perfect-scrollbar  class="inner-content container" style="background: #000">
+      <perfect-scrollbar  class="inner-content container">
         <slot />
       </perfect-scrollbar>
     </eagle-transition-fade>
@@ -26,11 +26,11 @@ export default class EagleContent extends Vue {}
   width: 100%;
   height: 100%;
 
-  background: #060606;
+  background: #0b0b0b;
   color: #f4f4f4;
 
   .inner-content {
-    // background-color: #000;
+    background: #000;
     padding: 48px;
     max-height: 95%;
     overflow-y: auto;
