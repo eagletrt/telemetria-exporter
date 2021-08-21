@@ -1,6 +1,6 @@
 <template>
   <eagle-content>
-    <h1 v-for="el of 100" :key="el">ciaocoaes</h1>
+    <h1>ciaocoaes</h1>
   </eagle-content>
 </template>
 
