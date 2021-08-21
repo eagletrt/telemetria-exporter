@@ -2,12 +2,11 @@ const mongoback = require('mongoback');
 const zl = require('zip-lib');
 const { Logger } = require('euberlog');
 
-const logger = require('../../utils/logger')('EXPORT_JSON');
 const remover = require('../../utils/remover');
 const pather = require('../../utils/pather');
 const getSessions = require('../../utils/get-sessions');
 
-const { MONGO } = require('../../config');
+const { MONGODB } = require('../../utils/config');
 
 const logger = new Logger({ scope: 'EXPORT_JSON' });
 
@@ -29,8 +28,8 @@ module.exports = function (router) {
             
         try {
             await mongoback.mongoExport({
-                uri: MONGO.uri,
-                collections: { [MONGO.database]: sessionsToExport },
+                uri: MONGODB.URI,
+                collections: { [MONGODB.DATABASE]: sessionsToExport },
                 jsonArray: true,
                 throwIfLackOfPermissions: true,
                 throwIfOneFails: true,

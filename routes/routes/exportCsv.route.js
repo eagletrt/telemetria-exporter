@@ -6,7 +6,7 @@ const remover = require('../../utils/remover');
 const pather = require('../../utils/pather');
 const getSessions = require('../../utils/get-sessions');
 
-const { MONGO } = require('../../config');
+const { MONGODB } = require('../../utils/config');
  
 const logger = new Logger({ scope: 'EXPORT_CSV' });
 
@@ -28,8 +28,8 @@ module.exports = function (router) {
 
         try {
             await eagletrtCsv.mongoExport({
-                uri: MONGO.uri,
-                collections: { [MONGO.database]: sessionsToExport },
+                uri: MONGODB.URI,
+                collections: { [MONGODB.DATABASE]: sessionsToExport },
                 throwIfLackOfPermissions: true,
                 throwIfOneFails: true,
                 outDir: folderPath

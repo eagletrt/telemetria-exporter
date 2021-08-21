@@ -5,11 +5,10 @@ const compression = require('compression');
 const helmet = require('helmet');
 const cors = require('cors');
 const morgan = require('morgan');
-const bodyParser = require('body-parser');
 const httpsLocal = require('https-local');
 const { Logger } = require('euberlog');
 
-const { PORT, PORT_HTTPS, DIST_PATH } = require('./config');
+const { SERVER: { PORT, PORT_HTTPS }, FRONTEND } = require('./utils/config');
 const routes = require('./routes');
 const app = express();
 
@@ -32,11 +31,11 @@ logger.debug('morgan');
 app.use(morgan('dev'));
 
 logger.debug('bodyParser');
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
 logger.debug('express-static');
-app.use(express.static(DIST_PATH));
+app.use(express.static(FRONTEND.PATH));
 
 logger.success('Added middlewares!!!');
 
