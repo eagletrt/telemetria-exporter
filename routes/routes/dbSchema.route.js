@@ -1,12 +1,14 @@
 const { MongoClient } = require('mongodb');
 const { MongoScanner } = require('mongo-scanner');
-const logger = require('../../utils/logger')('DBSCHEMA');
+const { Logger } = require('euberlog');
 
 const { MONGO } = require('../../config');
 const mongoScanner = new MongoScanner(MONGO.uri, null, { 
     excludeSystem: true,
     ignoreLackOfPermissions: true
 });
+
+const logger = new Logger({ scope: 'DBSCHEMA' });
 
 module.exports = function (router) {
 

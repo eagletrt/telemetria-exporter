@@ -7,12 +7,13 @@ const cors = require('cors');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const httpsLocal = require('https-local');
+const { Logger } = require('euberlog');
 
 const { PORT, PORT_HTTPS, DIST_PATH } = require('./config');
 const routes = require('./routes');
 const app = express();
 
-const logger = require('./utils/logger')('MAIN');
+const logger = new Logger({ scope: 'MAIN' });
 
 /* ADDING MIDDLEWARES */
 

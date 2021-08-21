@@ -1,10 +1,14 @@
 const eagletrtCsv = require('eagletrt-csv');
 const zl = require('zip-lib');
-const logger = require('../../utils/logger')('EXPORT_CSV');
+const { Logger } = require('euberlog');
+
 const remover = require('../../utils/remover');
 const pather = require('../../utils/pather');
 const getSessions = require('../../utils/get-sessions');
+
 const { MONGO } = require('../../config');
+ 
+const logger = new Logger({ scope: 'EXPORT_CSV' });
 
 module.exports = function (router) {
 

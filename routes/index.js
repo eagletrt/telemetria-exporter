@@ -1,7 +1,9 @@
 const express = require('express');
 const path = require('path');
 const dree = require('dree');
-const logger = require('../utils/logger')('ROUTES');
+const { Logger } = require('euberlog');
+
+const logger = new Logger({ scope: 'ROUTES' });
 
 module.exports = function () {
     const router = express.Router();
