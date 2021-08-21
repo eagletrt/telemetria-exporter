@@ -1,6 +1,6 @@
 <template>
   <eagle-content>
-    <h1 v-for="el of 100" :key="el">ciaocoaes</h1>
+    <home />
   </eagle-content>
 </template>
 
@@ -9,9 +9,12 @@ import { Component, Vue } from "vue-property-decorator";
 
 import EagleContent from "@/components/gears/layout/EagleContent.vue";
 
+import Home from '@/components/pages/home/Home.vue';
+
 @Component({
   components: {
     EagleContent,
+    Home
   },
 })
 export default class HomeView extends Vue {}

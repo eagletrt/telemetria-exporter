@@ -31,7 +31,7 @@ export default class EagleContent extends Vue {}
 
   .inner-content {
     // background-color: #000;
-    padding: 24px;
+    padding: 48px;
     max-height: 95%;
     overflow-y: auto;
   }
