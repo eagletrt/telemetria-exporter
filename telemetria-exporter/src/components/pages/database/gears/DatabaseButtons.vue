@@ -1,8 +1,8 @@
 <template>
   <div class="home-buttons row justify-content-center">
     <div class="col d-flex align-items-center justify-content-center">
-      <eagle-button class="button" to="/database">DATABASE</eagle-button>
-      <eagle-button class="button" to="/logs">LOGS</eagle-button>
+      <eagle-button class="button">JSON</eagle-button>
+      <eagle-button class="button">CSV</eagle-button>
     </div>
   </div>
 </template>

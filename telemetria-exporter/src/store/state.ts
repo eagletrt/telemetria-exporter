@@ -13,7 +13,7 @@ export const state: State = {
     databaseSchema: {},
     currentDatabaseIndex: -1,
     selectedItems: {},
-    message: '',
+    message: 'prova',
     status: Status.NONE,
     loading: false
 }
