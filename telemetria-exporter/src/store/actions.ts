@@ -6,6 +6,7 @@ import * as api from '@/utils/api';
 
 import { State } from './state'
 import { Mutations, MutationTypes } from './mutations'
+import { downloadFile } from '@/utils/download';
 
 export enum ActionTypes {
     SET_STATUS = 'SET_STATUS',
@@ -31,8 +32,8 @@ export interface Actions {
     [ActionTypes.SELECT_DATABASE]({ commit, state }: AugmentedActionContext, index: number): void;
     [ActionTypes.ADD_COLLECTION]({ commit, state }: AugmentedActionContext, payload: { db: string, collection: string }): void;
     [ActionTypes.REMOVE_COLLECTION]({ commit, state }: AugmentedActionContext, payload: { db: string, collection: string }): void;
-    [ActionTypes.EXPORT_JSON]({ dispatch, state }: AugmentedActionContext): void;
-    [ActionTypes.EXPORT_CSV]({ dispatch, state }: AugmentedActionContext): void;
+    [ActionTypes.EXPORT_JSON]({ dispatch, state }: AugmentedActionContext): Promise<void>;
+    [ActionTypes.EXPORT_CSV]({ dispatch, state }: AugmentedActionContext): Promise<void>;
     [ActionTypes.BACK_TO_EDITING]({ dispatch, state }: AugmentedActionContext): void;
 }
 
@@ -69,6 +70,64 @@ export const actions: ActionTree<State, State> & Actions = {
                 console.error('Error in fetching database', error);
                 dispatch(ActionTypes.SET_STATUS, Status.FETCHING_ERROR);
             }
+        }
+    },
+    [ActionTypes.SELECT_DATABASE]({ commit, state }, index) {
+        if (state.status === Status.EDITING) {
+            commit(MutationTypes.SET_CURRENT_DATABASE_INDEX, index);
+        }
+    },
+    [ActionTypes.ADD_COLLECTION]({ commit, state }, payload) {
+        if (state.status === Status.EDITING) {
+            const selectedItems = { ...state.selectedItems };
+            if (selectedItems[payload.db]) {
+                selectedItems[payload.db].push(payload.collection);
+            } else {
+                selectedItems[payload.db] = [payload.collection];
+            }
+            commit(MutationTypes.SET_SELECTED_ITEMS, selectedItems);
+        }
+    },
+    [ActionTypes.REMOVE_COLLECTION]({ commit, state }, payload) {
+        if (state.status === Status.EDITING) {
+            const selectedItems = { ...state.selectedItems };
+            const index = selectedItems[payload.db].indexOf(payload.collection);
+            selectedItems[payload.db].splice(index, 1);
+            if (!selectedItems[payload.db].length) {
+                delete selectedItems[payload.db];
+            }
+            commit(MutationTypes.SET_SELECTED_ITEMS, selectedItems);
+        }
+    },
+    async [ActionTypes.EXPORT_JSON]({ dispatch, state }) {
+        if (state.status === Status.EDITING) {
+            dispatch(ActionTypes.SET_STATUS, Status.EXPORTING);
+            try {
+                const data = await api.exportJson(state.selectedItems);
+                downloadFile(data);
+                dispatch(ActionTypes.FETCH_DATABASE_SCHEMA);
+            } catch (error) {
+                console.error('Error in exporting collections as json', error);
+                dispatch(ActionTypes.SET_STATUS, Status.EXPORTING_ERROR);
+            }
+        }
+    },
+    async [ActionTypes.EXPORT_CSV]({ dispatch, state }) {
+        if (state.status === Status.EDITING) {
+            dispatch(ActionTypes.SET_STATUS, Status.EXPORTING);
+            try {
+                const data = await api.exportCsv(state.selectedItems);
+                downloadFile(data);
+                dispatch(ActionTypes.FETCH_DATABASE_SCHEMA);
+            } catch (error) {
+                console.error('Error in exporting collections as csv', error);
+                dispatch(ActionTypes.SET_STATUS, Status.EXPORTING_ERROR);
+            }
+        }
+    },
+    [ActionTypes.BACK_TO_EDITING]({ dispatch, state }) {
+        if (state.status === Status.EXPORTING || state.status === Status.EXPORTING_ERROR) {
+            dispatch(ActionTypes.SET_STATUS, Status.EDITING);
         }
     }
 }

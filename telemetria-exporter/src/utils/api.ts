@@ -17,13 +17,13 @@ export async function getDatabaseSchema(): Promise<DatabaseSchema> {
     return response.data;
 }
 
-export async function exportJson(selectedItems: CollectionsToExport): Promise<Blob> {
+export async function exportJson(selectedItems: DatabaseSchema): Promise<Blob> {
     const body = { collectionsToExport: selectedItems };
     const response = await axios.post(`${PROTOCOL}://${HOSTNAME}/api/export/json`, body, { responseType: 'blob' });
     return response.data;
 }
 
-export async function exportCsv(selectedItems: CollectionsToExport): Promise<Blob> {
+export async function exportCsv(selectedItems: DatabaseSchema): Promise<Blob> {
     const body = { collectionsToExport: selectedItems };
     const response = await axios.post(`${PROTOCOL}://${HOSTNAME}/api/export/csv`, body, { responseType: 'blob' });
     return response.data;
