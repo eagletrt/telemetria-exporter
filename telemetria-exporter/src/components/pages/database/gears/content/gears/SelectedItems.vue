@@ -3,7 +3,7 @@
     <div v-for="db of databases" :key="db" class="db-container">
       <eagle-item type="DB" :text="db" selected />
       <div v-for="collection of selectedItems[db]" :key="collection">
-        <eagle-item erased type="COLLECTION" :text="ellipseText(collection)" @click="removeCollection(db, collection)" />
+        <eagle-item erased type="COLLECTION" :text="collection" :ellipse="35" @click="removeCollection(db, collection)" />
       </div>
     </div>
   </div>
@@ -14,8 +14,6 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 
 import { ActionTypes } from "@/store";
 import { DatabaseSchema } from "@/types";
-
-import { ellipseText } from '@/utils/ellipseText';
 
 import EagleItem from "@/components/gears/basics/EagleItem.vue";
 
@@ -40,10 +38,6 @@ export default class SelectedItems extends Vue {
 
   removeCollection(db: string, collection: string): void {
     this.$store.dispatch(ActionTypes.REMOVE_COLLECTION, { db, collection });
-  }
-
-  ellipseText(text: string): string {
-    return ellipseText(text, 34);
   }
 }
 </script>

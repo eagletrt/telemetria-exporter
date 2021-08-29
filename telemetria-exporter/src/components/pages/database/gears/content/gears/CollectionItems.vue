@@ -4,7 +4,8 @@
       v-for="{ label, selected } of collections"
       :key="label"
       type="COLLECTION"
-      :text="ellipseText(label)"
+      :ellipse="35"
+      :text="label"
       :selected="selected"
       @click="toggleCollection(label, selected)"
     />
@@ -16,8 +17,6 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 
 import { ActionTypes } from "@/store";
 import { CollectionInfo } from "@/types";
-
-import { ellipseText } from "@/utils/ellipseText";
 
 import EagleItem from "@/components/gears/basics/EagleItem.vue";
 
@@ -53,8 +52,5 @@ export default class CollectionItems extends Vue {
     }
   }
 
-  ellipseText(text: string): string {
-    return ellipseText(text, 34);
-  }
 }
 </script>

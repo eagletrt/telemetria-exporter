@@ -1,7 +1,7 @@
 <template>
   <div class="eagle-item">
-    <span :class="itemClass" @click="$emit('click')">
-      <slot>{{ text }}</slot>
+    <span :class="itemClass" @click="$emit('click')" :title="text">
+      <slot>{{ shownText }}</slot>
     </span>
   </div>
 </template>
@@ -27,7 +27,14 @@ export default class EagleItem extends Vue {
   @Prop({ type: Boolean, default: false })
   erased!: boolean;
 
+  @Prop({ type: Number, required: false })
+  ellipse?: number;
+
   /* GETTERS */
+
+  get shownText(): string {
+    return this.ellipse ? this.ellipseText(this.text, this.ellipse) : this.text;
+  }
 
   get itemClass(): any {
     return {
@@ -37,6 +44,13 @@ export default class EagleItem extends Vue {
       database: this.type === "DB",
       collection: this.type === "COLLECTION",
     };
+  }
+
+  /* METHODS */
+
+  ellipseText(text: string, length: number): string {
+    const result = text.slice(0, length - 3);
+    return result.length === length - 3 ? result.padEnd(length, '.') : result;
   }
 }
 </script>
