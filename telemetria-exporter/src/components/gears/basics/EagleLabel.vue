@@ -53,6 +53,9 @@ export default class EagleLabel extends Vue {
     if (this.loading) {
       setInterval(() => this.updateDots(), this.interval);
     }
+    else {
+      this.dotsCount = 0;
+    }
   }
 }
 </script>
