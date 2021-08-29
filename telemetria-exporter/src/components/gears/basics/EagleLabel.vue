@@ -56,3 +56,9 @@ export default class EagleLabel extends Vue {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.eagle-label {
+  white-space: pre;
+}
+</style>
