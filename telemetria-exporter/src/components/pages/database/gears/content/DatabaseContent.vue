@@ -4,10 +4,10 @@
       <database-items :databases="databases" :selected="currentDatabaseIndex" />
     </div>
     <div class="col">
-      <!-- <collection-items :collections="collections" /> -->
+      <collection-items :collections="collections" />
     </div>
     <div class="col">
-      <!-- <selected-items :selectedItems="selectedItems" /> -->
+      <selected-items :selectedItems="selectedItems" />
     </div>
   </div>
 </template>
@@ -17,10 +17,14 @@ import { CollectionInfo, DatabaseSchema } from "@/types";
 import { Component, Prop, Vue } from "vue-property-decorator";
 
 import DatabaseItems from "./gears/DatabaseItems.vue";
+import CollectionItems from "./gears/CollectionItems.vue";
+import SelectedItems from "./gears/SelectedItems.vue";
 
 @Component({
   components: {
     DatabaseItems,
+    CollectionItems,
+    SelectedItems
   },
 })
 export default class DatabaseContent extends Vue {
@@ -38,10 +42,10 @@ export default class DatabaseContent extends Vue {
   @Prop({ type: Object, required: true })
   selectedItems!: DatabaseSchema;
 }
-</script>
+</script>-
 
 <style lang="scss" scoped>
-.database-title {
-  margin-bottom: 24px;
+.database-content {
+  margin-bottom: 32px;
 }
 </style>

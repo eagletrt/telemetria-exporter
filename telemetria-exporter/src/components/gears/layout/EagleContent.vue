@@ -30,6 +30,7 @@ export default class EagleContent extends Vue {}
   color: #f4f4f4;
 
   .inner-content {
+    width: 100%;
     background: #000;
     padding: 48px;
     max-height: 95%;

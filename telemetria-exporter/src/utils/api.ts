@@ -1,4 +1,4 @@
-import { CollectionsToExport, DatabaseSchema } from '@/types';
+import { DatabaseSchema } from '@/types';
 import axios from 'axios';
 
 function getHostname() {

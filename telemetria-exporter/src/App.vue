@@ -17,6 +17,7 @@ html, body {
 
 ::selection {
   background: #8EBAF0;
+  color: #333333;
 }
 </style>
 

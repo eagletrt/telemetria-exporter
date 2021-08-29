@@ -23,7 +23,7 @@ export default class EageLogo extends Vue {
 
   /* GETTERS */
 
-  get imgStyle() {
+  get imgStyle(): { width: string, height: string } {
     return {
       width: `${this.width}px`,
       height: `${this.height}px`,
